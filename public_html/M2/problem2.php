@@ -7,6 +7,7 @@ function getTotal($arr) {
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
     $total = 0.00;
     //TODO do adding here
+    //goes through each element in array and adds it together
     foreach($arr as $num)
     {
         $total += $num;
@@ -14,11 +15,13 @@ function getTotal($arr) {
 
     //TODO do rounding stuff here
     //$total = round($total, 2);
+
+    //formats the number so it goes as far as 2 decimal places
     $total = number_format($total, 2, '.', '');
-    $total = str_replace("'", "", $total);
+    //$total = str_replace("'", "", $total);
 
 
-    
+    //modified output to remove weird quotes
     echo "The total is " . str_replace("'", "",var_export($total, true));
 }
 echo "Problem 2: Adding Floats<br>";
