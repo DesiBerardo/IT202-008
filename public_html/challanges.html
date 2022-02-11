@@ -8,17 +8,51 @@
         window.addEventListener("load", () => {
             console.log("loaded via javascript");
             //TODO: add any extra onload processing you may need here
+            document.onclick = getCurrentSelection();
         });
         function getCurrentSelection() {
             setTimeout(() => {
                 //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
                 //TODO: add code for processing the current selection 
+                var change = "wiener";
 
                 //Note: likely you'll want to call updateCurrentPage towards the end
+                updateCurrentPage(change);
             }, 100);
         }
     </script>
     <style>
+        nav ul
+        {
+            list-style-type: none;
+            float: center;
+        }
+        nav li
+        {
+            
+            float: left;
+            background-color: hotpink;
+        }
+        nav li a
+        {
+            padding: 10px;
+        }
+        nav li a:hover
+        {
+            color: green;
+        }
+        ul 
+        {
+            list-style-type: "✓";
+        }
+        h1, a
+        {
+            text-transform: capitalize;
+        }
+        body
+        {
+            background-color: bisque;
+        }
         /* TODO: make edits here */
     </style>
     <!-- make the necessary edits above this line -->
