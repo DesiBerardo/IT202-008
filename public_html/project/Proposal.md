@@ -1,9 +1,9 @@
-# Project Name: (Which Project)
-## Project Summary: (Copy from proposal)
-## Github Link: (Prod Branch of Project Folder)
-## Project Board Link: 
-## Website Link: (Heroku Prod of Project folder)
-## Your Name:
+# Project Name: Simple Bank
+## Project Summary: This project will create a bank simulation for users. They’ll be able to have various accounts, do standard bank functions like deposit, withdraw, internal (user’s accounts)/external(other user’s accounts) transfers, and creating/closing accounts.
+## Github Link: https://github.com/DesiBerardo/IT202-008/tree/prod
+## Project Board Link: https://github.com/DesiBerardo/IT202-008/projects/1
+## Website Link: https://db32-prod.herokuapp.com/
+## Your Name: Desimir Berardo
 
 <!-- Line item / Feature template (use this for each bullet point) -- DO NOT DELETE THIS SECTION
 
@@ -17,13 +17,64 @@
 ### Proposal Checklist and Evidence
 
 - Milestone 1
-  - (duplicate template here for Milestone 1 features)  
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url) 
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  
 - Milestone 2
-  - (duplicate template here for Milestone 1 features)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
 - Milestone 3
-  - (duplicate template here for Milestone 1 features)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
 - Milestone 4
-  - (duplicate template here for Milestone 1 features)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+  -  Link to related .md file: [Link Name](link url)
   - 
 ### Intructions
 #### Don't delete this
