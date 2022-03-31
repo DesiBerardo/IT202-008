@@ -32,6 +32,7 @@ var up = false;
 var down = false;
 var space = false;
 //added vars for left and right
+//db32 3/24/2022
 var left = false;
 var right = false;
 
@@ -125,6 +126,7 @@ canvas.addEventListener('keydown', function(event) {
     down = true;
   }
   //keycodes for right and left
+  //db32 3/24/2022
   if(event.keyCode === 39)
   {
       right = true;
@@ -148,6 +150,7 @@ canvas.addEventListener('keyup', function(event) {
   }
 
   //keycodes again
+  //db32 3/24/2022
   if(event.keyCode === 39)
   {
       right = false;
@@ -165,6 +168,7 @@ function erase() {
 
 // Shoot the bullet (if not already on screen)
 function shoot() {
+    //db32 3/24/2022
     //removed restriction for shooting time
   //if (!shooting) {
     shooting = true;
@@ -200,6 +204,7 @@ function draw() {
     ship.y -= ship.s;
   }
   //added left and right movement
+      //db32 3/24/2022
   if(left){
       ship.x -= ship.s;
   }
@@ -214,6 +219,7 @@ function draw() {
     ship.y = canvas.height - ship.l;
   }
   //added bounds for left and right
+      //db32 3/24/2022
   if (ship.x < 0) {
     ship.x = 0;
   }
