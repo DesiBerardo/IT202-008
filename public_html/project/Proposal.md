@@ -29,7 +29,7 @@
   - [x] \(02/22/2022)* Basic security rules implemented
   -  Link to related .md file: [Link Name](link url)
 
-  - [ ] \(mm/dd/yyyy of completion) * Basic Roles implemented
+  - [x] \(mm/dd/yyyy of completion) * Basic Roles implemented
   -  Link to related .md file: [Link Name](link url) 
 
   - [ ] \(mm/dd/yyyy of completion) * Site should have basic styles/theme applied; everything should be styled
