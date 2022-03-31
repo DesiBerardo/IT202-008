@@ -26,13 +26,13 @@
   - [x] \(02/22/2022) * User will be able to logout
   -  Link to related .md file: [Link Name](link url)
 
-  - [x] \(02/22/2022)* Basic security rules implemented
+  - [x] \(02/22/2022) * Basic security rules implemented
   -  Link to related .md file: [Link Name](link url)
 
   - [x] \(mm/dd/yyyy of completion) * Basic Roles implemented
   -  Link to related .md file: [Link Name](link url) 
 
-  - [ ] \(mm/dd/yyyy of completion) * Site should have basic styles/theme applied; everything should be styled
+  - [x] \(mm/dd/yyyy of completion) * Site should have basic styles/theme applied; everything should be styled
   -  Link to related .md file: [Link Name](link url)
 
   - [x] \(03/03/2022) * Any output messages/errors should be “user friendly”
