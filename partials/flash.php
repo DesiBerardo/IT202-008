@@ -23,7 +23,7 @@
 
     moveMeUp(document.getElementById("flash"));
 </script>
-<style>
+<!--<style>
     .alert-success {
         background-color: green
     }
@@ -39,4 +39,4 @@
     .alert-info {
         background-color: teal;
     }
-</style>
+</style>-->
