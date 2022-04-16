@@ -6,7 +6,7 @@ if (!is_logged_in()) {
 ?>
 
 <Div>
-    <h3><a href="#">My Accounts</a></h3>
+    <h3><a href="my_accounts.php">My Accounts</a></h3>
     <h3><a href="#">Deposit</a></h3>
     <h3><a href="#">Withdraw</a></h3>
     <h3><a href="#">Transfer</a></h3>
