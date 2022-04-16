@@ -10,7 +10,7 @@ if (!is_logged_in()) {
     <h3><a href="#">Deposit</a></h3>
     <h3><a href="#">Withdraw</a></h3>
     <h3><a href="#">Transfer</a></h3>
-    <h3><a href="#">Profile</a></h3>
+    <h3><a href="profile.php">Profile</a></h3>
 </Div>
 
 <?php
