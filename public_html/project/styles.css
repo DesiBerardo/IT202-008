@@ -20,6 +20,10 @@
         border: 1px solid black;
         border-collapse: collapse;
     }
+    .dynamic-table {
+        margin-left: auto;
+        margin-right: auto;
+      }
 
     th,
     td {
