@@ -39,7 +39,7 @@ function get_or_create_account($account_type)
             users_check_duplicate($e->errorInfo);
         }
         $id = $db->lastInsertId();
-        $account_num = str_pad($id, 12, "0");
+        $account_num = str_pad($id, 12, "0", STR_PAD_LEFT);
         $stmt = $db->prepare("UPDATE Accounts SET account = :account_num WHERE id = :id");
         $stmt->execute([":account_num" => $account_num, ":id" => $id]);
         
@@ -47,13 +47,12 @@ function get_or_create_account($account_type)
     } else {
         flash("You're not logged in", "danger");
     }
-    die(header("Location: dashboard.php"));
+    die(header("Location: my_accounts.php"));
 }
 if(isset($_POST['account_type']))
 {
     get_or_create_account(se($_POST, "account_type", "", false));
 }
-
 
 ?>
 

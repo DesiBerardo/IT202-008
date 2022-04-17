@@ -46,6 +46,7 @@ try {
         <?php endforeach; ?>
     </table>
 <?php endif; ?>
+<h3><a href="create_account.php">Create New Account</a></h3>
 
 
 <?php
