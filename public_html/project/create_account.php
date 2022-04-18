@@ -11,6 +11,8 @@ if (!is_logged_in()) {
     <select class="form-control" name="account_type">
         <option value="checking">Checking</option>
     </select>
+    <label for="amount">Amount</label>
+        <input type="number" class="form-control" name = "amount">
         <button type="submit" class="btn btn-primary">Create Account</button>
     </form>
 </div>
@@ -26,9 +28,12 @@ if (!is_logged_in()) {
 
 <?php
 
-function get_or_create_account($account_type)
+function get_or_create_account()
 {
-    if (is_logged_in()) {
+    if (is_logged_in())
+     {
+        $account_type = se($_POST, "account_type", "", false);
+        $amount = se($_POST, "amount", "", false);
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO Accounts (account_type, user_id) VALUES (:account_type, :user_id)");
         try {
@@ -44,14 +49,46 @@ function get_or_create_account($account_type)
         $stmt->execute([":account_num" => $account_num, ":id" => $id]);
         
 
+
+        $queryBal = "SELECT balance FROM Accounts WHERE id = :id";
+        $stmt = $db->prepare($queryBal);
+        $stmt->execute([":id" => 1]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $src_b =  (int)se($result,"balance",0, false);
+
+        $stmt->execute([":id" => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $dest_b =  (int)se($result,"balance",0, false);
+
+        $e1 = $src_b - $amount;
+        $e2 = $dest_b + $amount;
+
+        $query = "INSERT INTO Transactions(account_src, account_dest, balance_change, transaction_type, memo, expected_total) VALUES(:src, :dest, :bal, :type, :memo, :total)";
+
+        $stmt = $db->prepare($query);
+        $stmt->execute([":src" => 1, ":dest" => $id, ":bal" => $amount * -1, ":type" => "desposit", ":memo" => "initail Deposit", ":total" => $e1]);
+
+        $queryUp = "UPDATE Accounts SET balance = (SELECT IFNULL(SUM(balance_change), 0) from Transactions WHERE account_src = :src) WHERE id = :id";
+        $stmt = $db->prepare($queryUp);
+        $stmt->execute([":src" => 1, ":id" => 1]);
+
+        $stmt = $db->prepare($query);
+        $stmt->execute([":src" => $id, ":dest" => 1, ":bal" => $amount, ":type" => "desposit", ":memo" => "Initial Deposit", ":total" => $e2]);
+        $stmt = $db->prepare($queryUp);
+        $stmt->execute([":src" => $id, ":id" => $id]);
+
     } else {
         flash("You're not logged in", "danger");
     }
     die(header("Location: my_accounts.php"));
 }
-if(isset($_POST['account_type']))
+if(isset($_POST['account_type']) && $_POST['amount'] >= 5)
 {
-    get_or_create_account(se($_POST, "account_type", "", false));
+    get_or_create_account();
+}
+else
+{
+    flash("Minimum $5 deposit required", "danger");
 }
 
 ?>
