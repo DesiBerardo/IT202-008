@@ -5,12 +5,11 @@ if (!is_logged_in()) {
 }
 ?>
 <?php
-$account = $_GET["id"];
+$id = $_GET["id"];
 $db = getDB();
-$id = get_user_id();
-$query = "SELECT account, account_type, balance, created FROM Accounts WHERE account = :account";
+$query = "SELECT id, account, account_type, balance, created FROM Accounts WHERE id = :id";
 $stmt = $db->prepare($query);
-$stmt->execute([":account" => $account]);
+$stmt->execute([":id" => $id]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <h3>Account Information</h3>
@@ -33,11 +32,11 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 //generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT account_src, account_dest, transaction_type, balance_change, expected_total, modified, memo FROM Transactions WHERE account_src OR account_dest = :account LIMIT 10"; //TODO change table name and desired columns
+$query = "SELECT account_src, account_dest, transaction_type, balance_change, expected_total, modified, memo FROM Transactions WHERE account_src = :id LIMIT 10"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results = [];
 try {
-    $stmt->execute([":account" => $account]);
+    $stmt->execute([":id" => $id]);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "<pre>" . var_export($e, true) . "</pre>";
