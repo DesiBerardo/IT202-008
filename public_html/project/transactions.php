@@ -31,8 +31,10 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 
 <?php
-//generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT account_src, account_dest, transaction_type, balance_change, expected_total, modified, memo FROM Transactions WHERE account_src = :id LIMIT 10"; //TODO change table name and desired columns
+$query = "SELECT A.account as account_src, B.account as account_dest, transaction_type, balance_change, expected_total, T.modified, memo
+ FROM Transactions T
+  JOIN Accounts A on A.id = T.account_src JOIN Accounts B on B.id = T.account_dest
+  WHERE account_src = :id  LIMIT 10"; 
 $stmt = $db->prepare($query);
 $results = [];
 try {
