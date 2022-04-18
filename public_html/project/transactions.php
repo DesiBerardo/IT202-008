@@ -55,18 +55,12 @@ try {
                     <?php foreach ($record as $column => $value) : ?>
                         <th><?php se($column); ?></th>
                     <?php endforeach; ?>
-                    <th>Actions</th>
                 </thead>
             <?php endif; ?>
             <tr>
                 <?php foreach ($record as $column => $value) : ?>
                     <td><?php se($value, null, "N/A"); ?></td>
                 <?php endforeach; ?>
-
-
-                <td>
-                    <a href="transactions.php?id=<?php se($record, "account"); ?>">View Transactions</a>
-                </td>
             </tr>
         <?php endforeach; ?>
     </table>
