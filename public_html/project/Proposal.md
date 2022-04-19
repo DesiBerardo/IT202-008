@@ -48,27 +48,35 @@
 - Milestone 2
   - [x] \(4/7/2022) Create the Accounts table (id, account_number [unique, always 12 characters], user_id, balance (default 0), account_type, created, modified)
   -  Link to related .md file: [Link Name](link url)
+  - https://github.com/DesiBerardo/IT202-008/pull/59
 
   - [x] \(4/15/2022) Project setup steps:
   -  Link to related .md file: [Link Name](link url)
+  - 
 
   - [x] \(4/15/2022) Create the Transactions table (see reference at end of document)
   -  Link to related .md file: [Link Name](link url)
+  - 
 
   - [x] \(4/15/2022) Dashboard Page
   -  Link to related .md file: [Link Name](link url)
 
   - [x] \(4/16/2022) User will be able to create a checking account
   -  Link to related .md file: [Link Name](link url)
+  - https://db32-prod.herokuapp.com/project/create_account.php
 
   - [x] \(4/16/2022) User will be able to list their accounts
   -  Link to related .md file: [Link Name](link url)
+  - https://db32-prod.herokuapp.com/project/my_accounts.php
 
   - [x] \(4/17/2022) User will be able to click an account for more information (a.k.a Transaction History page)
   -  Link to related .md file: [Link Name](link url)
+  - https://db32-prod.herokuapp.com/project/transactions.php?id=7
 
   - [x] \(4/16/2022)User will be able to deposit/withdraw from their account(s)
   -  Link to related .md file: [Link Name](link url)
+  - https://db32-prod.herokuapp.com/project/deposit.php
+  - https://db32-prod.herokuapp.com/project/withdraw.php
 
 - Milestone 3
   - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
