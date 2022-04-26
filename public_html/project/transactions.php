@@ -7,14 +7,14 @@ if (!is_logged_in()) {
 <?php
 $id = $_GET["id"];
 $db = getDB();
-$query = "SELECT id, account, account_type, balance, created FROM Accounts WHERE id = :id";
-$stmt = $db->prepare($query);
+$query_acc = "SELECT id, account, account_type, balance, created FROM Accounts WHERE id = :id";
+$stmt = $db->prepare($query_acc);
 $stmt->execute([":id" => $id]);
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$results_acc = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <h3>Account Information</h3>
     <table class = dynamic-table>
-        <?php foreach ($results as $index => $record) : ?>
+        <?php foreach ($results_acc as $index => $record) : ?>
             <?php if ($index == 0) : ?>
                 <thead>
                     <?php foreach ($record as $column => $value) : ?>
@@ -51,28 +51,28 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <?php
-$startdate = se($_POST, "startdate", 0, false);
-$enddate = se($_POST, "enddate", 0, false);
+$startdate = se($_POST, "startdate", "", false);
+$enddate = se($_POST, "enddate", "", false);
 $type = se($_POST, "transactiontype", "", false);
 $params = [":id" => $id];
 
 $query = "SELECT A.account as account_src, B.account as account_dest, transaction_type, balance_change, expected_total, T.modified, memo
  FROM Transactions T
   JOIN Accounts A on A.id = T.account_src JOIN Accounts B on B.id = T.account_dest
-  WHERE account_src = :id ";
+  WHERE account_src = :id AND 1=1 ";
   
-if($type != "all")
+if($type != "all" && $type != "")
 {
     $query .= "AND transaction_type = :type ";
     $params[":type"] = $type;
 }
 
 
-if($startdate =! 0 && $enddate != 0)
+if($startdate =! "" && $enddate != "")
 {
-    if($startdate < $enddate)
+    if(strtotime($startdate) < strtotime($enddate))
     {
-        $query .= "AND T.modified BETWEEN :sdate AND :edate";
+        $query .= "AND T.modified BETWEEN :sdate AND :edate ";
         $params[":sdate"] = $startdate . " 00:00:00";
         $params[":edate"] = $enddate . " 23:59:59";
     }
@@ -81,31 +81,38 @@ if($startdate =! 0 && $enddate != 0)
         flash("start date must be before end date", "warning");
     }
 }
-$query .= " ORDER BY T.modified DESC LIMIT 10";
-
-echo $query;
-$total_query = "SELECT count(1) as total FROM Transactions id";
-$stmt = $db->prepare($query);
-$results = [];
-$total = 5;
-try {
-    $stmt->execute($params);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if ($results)
-    {
-        $total = (int)se($results, "total", 0, false);
-    }
-} catch (PDOException $e) {
-    echo "<pre>" . var_export($e, true) . "</pre>";
-}
+$query .= " ORDER BY T.modified DESC ";
 $page = se($_GET, "page", 1, false); //default to page 1 (human readable number)
-$per_page = 4; //how many items to show per page (hint, this could also be something the user can change via a dropdown or similar)
-$offset = ($page - 1) * $per_page;
+$per_page = 2; //how many items to show per page (hint, this could also be something the user can change via a dropdown or similar)
+//$offset = ($page - 1) * $per_page;
+$total_query = "SELECT count(1) as total FROM Transactions ";
+
+paginate($query . $total_query, $params, $per_page);
+
 $query .= " LIMIT :offset, :count";
 $params[":offset"] = $offset;
 $params[":count"] = $per_page;
 
-echo  "**" . $total . "**";
+echo $query;
+$stmt = $db->prepare($query);
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null;
+$results = [];
+try {
+    $stmt->execute($params);
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if($r)
+    {
+        $results = $r;
+    }
+} catch (PDOException $e) {
+    echo "<pre>" . var_export($e, true) . "</pre>";
+}
+
+//$total = 5;
 
 if (!isset($total)) {
     flash("Note to Dev: The total variable is undefined", "danger");
