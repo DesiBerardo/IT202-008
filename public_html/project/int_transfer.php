@@ -88,18 +88,16 @@ if(isset($_POST["amount"]))
                 $stmt->execute([":src" => $id_dest, ":id" => $id_dest]);
         
                 flash("Transaction Complete!", "success");
-            } 
-
+            }
             else
             {
                 flash("Insufficent Funds", "danger");
-            } 
+            }
         }
         else
         {
             flash("Please select two different accounts", "warning");
         }
-
     }
     else
     {
