@@ -30,7 +30,6 @@ function paginate($query, $params = [], $per_page = 10)
     $total = 0;
     if (isset($result)) {
         $total = (int)se($result, "total", 0, false);
-        echo  "**" . $total . "**"; 
     }
     global $total_pages; //will be available after function is called
     $total_pages = ceil($total / $per_page);

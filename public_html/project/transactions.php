@@ -30,36 +30,16 @@ $results_acc = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
     </table>
 
-<div class = trans_filter>
-<form method="POST" onsubmit="return validate(this);">
-    <label for = "startdate">Start Date</label>
-    <input type="date" name="startdate" id="startdate">
-    <label for = "enddate">End Date</label>
-    <input type="date" name="enddate" id="enddate">
-
-    <label for="transactiontype">Transaction Type</label>
-    <select class = "form-control" name="transactiontype">
-        <option value="all" >All</option>
-        <option value="deposit" >Deposits</option>
-        <option value="withdraw" >Withdraws</option>
-        <option value="Internal Transfer" >Internal Transfer</option>
-        <option value="ext-transfer" >External Transfer</option>
-    </select>
-
-    <button type="submit" class="btn btn-primary">Apply</button>
-</form>
-</div>
-
 <?php
-$startdate = se($_POST, "startdate", "", false);
-$enddate = se($_POST, "enddate", "", false);
-$type = se($_POST, "transactiontype", "", false);
+$startdate = se($_GET, "startdate", "", false);
+$enddate = se($_GET, "enddate", "", false);
+$type = se($_GET, "transactiontype", "", false);
 $params = [":id" => $id];
 
-$query = "SELECT A.account as account_src, B.account as account_dest, transaction_type, balance_change, expected_total, T.modified, memo
+$base_query = "SELECT A.account as account_src, B.account as account_dest, transaction_type, balance_change, expected_total, T.modified, memo
  FROM Transactions T
-  JOIN Accounts A on A.id = T.account_src JOIN Accounts B on B.id = T.account_dest
-  WHERE account_src = :id AND 1=1 ";
+  JOIN Accounts A on A.id = T.account_src JOIN Accounts B on B.id = T.account_dest ";
+$query = "WHERE account_src = :id AND 1=1 ";
   
 if($type != "all" && $type != "")
 {
@@ -72,7 +52,7 @@ if($startdate =! "" && $enddate != "")
 {
     if(strtotime($startdate) < strtotime($enddate))
     {
-        $query .= "AND T.modified BETWEEN :sdate AND :edate ";
+        $query .= " AND T.modified BETWEEN :sdate AND :edate ";
         $params[":sdate"] = $startdate . " 00:00:00";
         $params[":edate"] = $enddate . " 23:59:59";
     }
@@ -83,18 +63,18 @@ if($startdate =! "" && $enddate != "")
 }
 $query .= " ORDER BY T.modified DESC ";
 $page = se($_GET, "page", 1, false); //default to page 1 (human readable number)
-$per_page = 2; //how many items to show per page (hint, this could also be something the user can change via a dropdown or similar)
+$per_page = 10; //how many items to show per page (hint, this could also be something the user can change via a dropdown or similar)
 //$offset = ($page - 1) * $per_page;
-$total_query = "SELECT count(1) as total FROM Transactions ";
+$total_query = "SELECT count(1) as total FROM Transactions as T ";
 
-paginate($query . $total_query, $params, $per_page);
+paginate($total_query . $query, $params, $per_page);
 
 $query .= " LIMIT :offset, :count";
 $params[":offset"] = $offset;
 $params[":count"] = $per_page;
-
 echo $query;
-$stmt = $db->prepare($query);
+
+$stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
     $stmt->bindValue($key, $value, $type);
@@ -111,8 +91,6 @@ try {
 } catch (PDOException $e) {
     echo "<pre>" . var_export($e, true) . "</pre>";
 }
-
-//$total = 5;
 
 if (!isset($total)) {
     flash("Note to Dev: The total variable is undefined", "danger");
@@ -143,7 +121,26 @@ function check_apply_disabled_next($page)
     echo ($page) >= $total_pages ? "disabled" : "";
 }
 ?>
+<div class = trans_filter>
+<form method="GET" onsubmit="return validate(this);">
+    <input type="hidden" name="id" value="<?php echo $_GET['id'];?>"/> 
 
+    <label for = "startdate">Start Date</label>
+    <input type="date" name="startdate" id="startdate" value="<?php se($startdate);?>">
+    <label for = "enddate">End Date</label>
+    <input type="date" name="enddate" id="enddate" value="<?php se($enddate);?>">
+    <label for="transactiontype">Transaction Type</label>
+    <select class = "form-control" name="transactiontype" value = "<?php se($type);?>">
+        <option value="all" >All</option>
+        <option value="deposit" >Deposits</option>
+        <option value="withdraw" >Withdraws</option>
+        <option value="Internal Transfer" >Internal Transfer</option>
+        <option value="ext-transfer" >External Transfer</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Apply</button>
+</form>
+</div>
 <h3>Transaction History</h3>
 
 <?php if (count($results) == 0) : ?>
