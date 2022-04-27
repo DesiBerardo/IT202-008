@@ -121,7 +121,6 @@ function check_apply_disabled_next($page)
     global $total_pages;
     echo ($page) >= $total_pages ? "disabled" : "";
 }
-echo $t_type;
 ?>
 <div class = trans_filter>
 <form method="GET" onsubmit="return validate(this);">
@@ -139,8 +138,11 @@ echo $t_type;
         <option value="Internal Transfer" >Internal Transfer</option>
         <option value="ext-transfer" >External Transfer</option>
     </select>
-
+    <script>
+        document.forms[0].transactiontype.value = "<?php se($t_type); ?>";
+        </script>
     <button type="submit" class="btn btn-primary">Apply</button>
+    <button onclick="event=>{event.preventDefault(); [...event.srcElement.closest('form').children].forEach(c=>c.value='');}">Reset</button>
 </form>
 </div>
 <h3>Transaction History</h3>
