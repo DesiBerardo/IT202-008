@@ -33,22 +33,23 @@ $results_acc = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php
 $startdate = se($_GET, "startdate", "", false);
 $enddate = se($_GET, "enddate", "", false);
-$type = se($_GET, "transactiontype", "", false);
+$t_type = se($_GET, "transactiontype", "", false);
 $params = [":id" => $id];
+
 
 $base_query = "SELECT A.account as account_src, B.account as account_dest, transaction_type, balance_change, expected_total, T.modified, memo
  FROM Transactions T
   JOIN Accounts A on A.id = T.account_src JOIN Accounts B on B.id = T.account_dest ";
 $query = "WHERE account_src = :id AND 1=1 ";
   
-if($type != "all" && $type != "")
+if($t_type != "all" && $t_type != "")
 {
     $query .= "AND transaction_type = :type ";
-    $params[":type"] = $type;
+    $params[":type"] = $t_type;
 }
 
 
-if($startdate =! "" && $enddate != "")
+if($startdate != "" && $enddate != "")
 {
     if(strtotime($startdate) < strtotime($enddate))
     {
@@ -72,7 +73,7 @@ paginate($total_query . $query, $params, $per_page);
 $query .= " LIMIT :offset, :count";
 $params[":offset"] = $offset;
 $params[":count"] = $per_page;
-echo $query;
+//echo $query;
 
 $stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
@@ -120,6 +121,7 @@ function check_apply_disabled_next($page)
     global $total_pages;
     echo ($page) >= $total_pages ? "disabled" : "";
 }
+echo $t_type;
 ?>
 <div class = trans_filter>
 <form method="GET" onsubmit="return validate(this);">
@@ -130,7 +132,7 @@ function check_apply_disabled_next($page)
     <label for = "enddate">End Date</label>
     <input type="date" name="enddate" id="enddate" value="<?php se($enddate);?>">
     <label for="transactiontype">Transaction Type</label>
-    <select class = "form-control" name="transactiontype" value = "<?php se($type);?>">
+    <select class = "form-control" name="transactiontype" value = "<?php se($t_type);?>">
         <option value="all" >All</option>
         <option value="deposit" >Deposits</option>
         <option value="withdraw" >Withdraws</option>
