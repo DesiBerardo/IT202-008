@@ -6,7 +6,7 @@ if (!is_logged_in()) {
 ?>
 <Div>
     <h3><a href="int_transfer.php">Internal Transfer</a></h3>
-    <h3><a href="#">External Transfer</a></h3>
+    <h3><a href="ext_transfer.php">External Transfer</a></h3>
 </Div>
 
 <?php
