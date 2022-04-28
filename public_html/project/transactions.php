@@ -136,13 +136,12 @@ function check_apply_disabled_next($page)
         <option value="deposit" >Deposits</option>
         <option value="withdraw" >Withdraws</option>
         <option value="Internal Transfer" >Internal Transfer</option>
-        <option value="ext-transfer" >External Transfer</option>
+        <option value="External transfer" >External Transfer</option>
     </select>
     <script>
         document.forms[0].transactiontype.value = "<?php se($t_type); ?>";
         </script>
     <button type="submit" class="btn btn-primary">Apply</button>
-    <button onclick="event=>{event.preventDefault(); [...event.srcElement.closest('form').children].forEach(c=>c.value='');}">Reset</button>
 </form>
 </div>
 <h3>Transaction History</h3>
