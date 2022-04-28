@@ -8,7 +8,7 @@ if (!is_logged_in()) {
     <h3><a href="my_accounts.php">My Accounts</a></h3>
     <h3><a href="deposit.php">Deposit</a></h3>
     <h3><a href="withdraw.php">Withdraw</a></h3>
-    <h3><a href="#">Transfer</a></h3>
+    <h3><a href="transfer_select.php">Transfer</a></h3>
     <h3><a href="profile.php">Profile</a></h3>
 </Div>
 
