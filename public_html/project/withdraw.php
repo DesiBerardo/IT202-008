@@ -25,6 +25,7 @@ try {
 <div class="container-fluid">
     <h1>Withdraw</h1>
     <form method="POST" onsubmit="return validate(this);">
+    <label for="account">Select Account</label>
         <select class="form-control" name="id">
             <?php foreach ($results as $index => $records) :?>
                 <option name = "id" value="<?php se($records, "id", false); ?>"><?php se($records, "account", false); ?></option>

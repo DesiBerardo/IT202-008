@@ -8,10 +8,12 @@ if (!is_logged_in()) {
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
+    $firstname = se($_POST, "firstname", null, false);
+    $lastname = se($_POST, "lastname", null, false);
 
-    $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+    $params = [":email" => $email, ":username" => $username, ":id" => get_user_id(), ":firstname" => $firstname, ":lastname" => $lastname];
     $db = getDB();
-    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
+    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username, firstname = :firstname, lastname = :lastname where id = :id");
     try {
         $stmt->execute($params);
         flash("Profile saved", "success");
@@ -31,7 +33,7 @@ if (isset($_POST["save"])) {
         }
     }
     //select fresh data from table
-    $stmt = $db->prepare("SELECT id, email, username from Users where id = :id LIMIT 1");
+    $stmt = $db->prepare("SELECT id, email, username, firstname, lastname from Users where id = :id LIMIT 1");
     try {
         $stmt->execute([":id" => get_user_id()]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -39,6 +41,8 @@ if (isset($_POST["save"])) {
             //$_SESSION["user"] = $user;
             $_SESSION["user"]["email"] = $user["email"];
             $_SESSION["user"]["username"] = $user["username"];
+            $_SESSION["user"]["firstname"] = $user["firstname"];
+            $_SESSION["user"]["lastname"] = $user["lastname"];
         } else {
             flash("User doesn't exist", "danger");
         }
@@ -46,7 +50,6 @@ if (isset($_POST["save"])) {
         flash("An unexpected error occurred, please try again", "danger");
         //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
     }
-
 
     //check/update password
     $current_password = se($_POST, "currentPassword", null, false);
@@ -86,6 +89,8 @@ if (isset($_POST["save"])) {
 <?php
 $email = get_user_email();
 $username = get_username();
+$firstname = get_firstname();
+$lastname = get_lastname();
 ?>
 <div class="container-fluid">
     <h1>Profile</h1>
@@ -97,6 +102,14 @@ $username = get_username();
         <div class="mb-3">
             <label class="form-label" for="username">Username</label>
             <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="firstname">First Name</label>
+            <input class="form-control" type="text" name="firstname" id="firstname" value="<?php se($firstname); ?>" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="lastname">Last Name</label>
+            <input class="form-control" type="text" name="lastname" id="lastname" value="<?php se($lastname); ?>" />
         </div>
         <!-- DO NOT PRELOAD PASSWORD -->
         <div class="mb-3">Password Reset</div>
