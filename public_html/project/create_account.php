@@ -10,6 +10,7 @@ if (!is_logged_in()) {
     <form method="POST" onsubmit="return validate(this);">
     <select class="form-control" name="account_type">
         <option value="checking">Checking</option>
+        <option value="savings">Savings</option>
     </select>
     <label for="amount">Amount</label>
         <input type="number" class="form-control" name = "amount">
@@ -34,10 +35,17 @@ function get_or_create_account()
      {
         $account_type = se($_POST, "account_type", "", false);
         $amount = se($_POST, "amount", "", false);
+        $apy = null;
+
+        if($account_type == "savings")
+        {
+            $apy = 1;
+        }
+
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Accounts (account_type, user_id) VALUES (:account_type, :user_id)");
+        $stmt = $db->prepare("INSERT INTO Accounts (account_type, user_id, apy) VALUES (:account_type, :user_id, :apy)");
         try {
-            $stmt->execute([":account_type" => $account_type, ":user_id" => get_user_id()]);
+            $stmt->execute([":account_type" => $account_type, ":user_id" => get_user_id(), ":apy" => $apy]);
 
             flash("Successfully created an account!", "success");
         } catch (Exception $e) {
@@ -86,6 +94,7 @@ if(isset($_POST['account_type']) && $_POST['amount'] >= 5)
 {
     get_or_create_account();
 }
+
 else
 {
     flash("Minimum $5 deposit required", "danger");
