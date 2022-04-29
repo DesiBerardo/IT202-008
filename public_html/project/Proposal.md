@@ -79,14 +79,23 @@
   - https://db32-prod.herokuapp.com/project/withdraw.php
 
 - Milestone 3
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
+  - [x] \(5/25/2022) User will be able to transfer between their accounts
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
+  -  https://db32-prod.herokuapp.com/project/int_transfer.php
+
+  - [x] \(5/26/2022) Transaction History Page
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
+  -  https://db32-prod.herokuapp.com/project/transactions.php?id=2
+
+  - [x] \(5/21/2022) User's profile First name and Last name
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
+  -  https://db32-prod.herokuapp.com/project/profile.php
+
+  - [x] \(5/28/2022) User will be able to transfer funds to another user
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
+  -  https://db32-prod.herokuapp.com/project/ext_transfer.php
+
+
 - Milestone 4
   - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
   -  Link to related .md file: [Link Name](link url)
