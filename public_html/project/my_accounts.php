@@ -9,7 +9,7 @@ if (!is_logged_in()) {
 $db = getDB();
 $id = get_user_id();
 //generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT id, account, account_type, modified, balance FROM Accounts WHERE user_id = :user_id LIMIT 5"; //TODO change table name and desired columns
+$query = "SELECT id, account, account_type, modified, balance, apy FROM Accounts WHERE user_id = :user_id"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results = [];
 try {
