@@ -11,7 +11,17 @@ if (!is_logged_in()) {
 $db = getDB();
 $id = get_user_id();
 //generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT id, account FROM Accounts WHERE user_id = :user_id"; //TODO change table name and desired columns
+$query = "SELECT id, account, account_type FROM Accounts WHERE user_id = :user_id AND NOT account_type = 'loan'"; //TODO change table name and desired columns
+$stmt = $db->prepare($query);
+$results_src = [];
+try {
+    $stmt->execute([":user_id" => $id]);
+    $results_src = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "<pre>" . var_export($e, true) . "</pre>";
+}
+
+$query = "SELECT id, account, account_type FROM Accounts WHERE user_id = :user_id"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results = [];
 try {
@@ -27,7 +37,7 @@ try {
     <form method="POST" onsubmit="return validate(this);">
     <label for="account">Select Source Account</label>
         <select class="form-control" name="id_src">
-            <?php foreach ($results as $index => $records) :?>
+            <?php foreach ($results_src as $index => $records) :?>
                 <option name = "id_src" value="<?php se($records, "id", false); ?>"><?php se($records, "account", false); ?></option>
             <?php endforeach; ?>
         </select>
