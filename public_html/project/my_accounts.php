@@ -47,6 +47,7 @@ try {
     </table>
 <?php endif; ?>
 <h3><a href="create_account.php">Create New Account</a></h3>
+<h3><a href="create_loan.php">Take Out a Loan</a></h3>
 
 
 <?php
