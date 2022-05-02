@@ -9,7 +9,9 @@ if (!is_logged_in()) {
 $db = getDB();
 $id = get_user_id();
 //generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT id, account, account_type, modified, balance, apy FROM Accounts WHERE user_id = :user_id"; //TODO change table name and desired columns
+$query = "SELECT A.id, A.account, A.account_type, A.modified, A.balance, S.apy_value as APY FROM Accounts A
+ LEFT JOIN Systemprop S on S.id = A.apy
+ WHERE user_id = :user_id"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results = [];
 try {
@@ -35,7 +37,7 @@ try {
             <?php endif; ?>
             <tr>
                 <?php foreach ($record as $column => $value) : ?>
-                    <td><?php se($value, null, "N/A"); ?></td>
+                    <td><?php se($value, null, "-"); ?></td>
                 <?php endforeach; ?>
 
 
