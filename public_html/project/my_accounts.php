@@ -11,7 +11,7 @@ $id = get_user_id();
 //generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
 $query = "SELECT A.id, A.account, A.account_type, A.modified, A.balance, S.apy_value as APY FROM Accounts A
  LEFT JOIN Systemprop S on S.id = A.apy
- WHERE user_id = :user_id"; //TODO change table name and desired columns
+ WHERE user_id = :user_id AND A.isActive = true"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results = [];
 try {
@@ -43,6 +43,9 @@ try {
 
                 <td>
                     <a href="transactions.php?id=<?php se($record, "id"); ?>">View Transactions</a>
+                </td>
+                <td>
+                    <a href="close.php?id=<?php se($record, "id"); ?>">Close Account</a>
                 </td>
             </tr>
         <?php endforeach; ?>
