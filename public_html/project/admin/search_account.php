@@ -17,10 +17,42 @@ if (!has_role("Admin")) {
 </div>
 
 <?php
-$name;
+$db= getDB();
+$name = se($_POST, "number", "", false);
+
+$query = "SELECT id, Account FROM Accounts WHERE account LIKE :n";
+
+$stmt = $db->prepare($query);
+$stmt->execute([":n" => "%$name%"]);
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
+<h3>Accounts</h3>
+<?php if (count($results) == 0) : ?>
+    <p>No results to show</p>
+<?php else : ?>
+    <table class = dynamic-table>
+        <?php foreach ($results as $index => $record) : ?>
+            <?php if ($index == 0) : ?>
+                <thead>
+                    <?php foreach ($record as $column => $value) : ?>
+                        <th><?php se($column); ?></th>
+                    <?php endforeach; ?>
+                    <th>View Transactions And Freeze</th>
+                </thead>
+            <?php endif; ?>
+            <tr>
+                <?php foreach ($record as $column => $value) : ?>
+                    <td><?php se($value, null, "-");?></td>
+                <?php endforeach; ?>
+                <td>
+                    <a href="transactions_admin.php?id=<?php se($record, "id"); ?>">View Transactions</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
 
 
 
