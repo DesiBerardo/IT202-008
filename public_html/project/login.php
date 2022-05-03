@@ -68,7 +68,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         //flash("Welcome, $email");
         //TODO 4
         $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, username, firstname, lastname, password from Users 
+        $stmt = $db->prepare("SELECT id, email, username, firstname, lastname, isActive, password from Users 
         where email = :email or username = :email");
         try {
             $r = $stmt->execute([":email" => $email]);
@@ -77,7 +77,11 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 if ($user) {
                     $hash = $user["password"];
                     unset($user["password"]);
-                    if (password_verify($password, $hash)) {
+                    $active = $user["isActive"];
+                    if (password_verify($password, $hash)) 
+                    {
+                        if($active == 1)
+                        {
                         //flash("Weclome $email");
                         $_SESSION["user"] = $user; //sets our session data from db
                         //lookup potential roles
@@ -94,6 +98,12 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         }
                         flash("Welcome, " . get_username());
                         die(header("Location: home.php"));
+                        }
+                        else
+                        {
+                            flash("User is Deactivated", "danger");
+                        }
+
                     } else {
                         flash("Invalid password");
                     }

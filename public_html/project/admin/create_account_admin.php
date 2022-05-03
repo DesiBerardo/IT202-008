@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/../../partials/nav.php");
+require_once(__DIR__ . "/../../../partials/nav.php");
 if (!is_logged_in()) {
     die(header("Location: login.php"));
 }
@@ -33,6 +33,7 @@ function get_or_create_account()
 {
     if (is_logged_in())
      {
+        $user_id = $_GET["id"];
         $account_type = se($_POST, "account_type", "", false);
         $amount = se($_POST, "amount", "", false);
         $apy = null;
@@ -45,7 +46,7 @@ function get_or_create_account()
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO Accounts (account_type, user_id, apy) VALUES (:account_type, :user_id, :apy)");
         try {
-            $stmt->execute([":account_type" => $account_type, ":user_id" => get_user_id(), ":apy" => $apy]);
+            $stmt->execute([":account_type" => $account_type, ":user_id" => $user_id, ":apy" => $apy]);
 
             flash("Successfully created an account!", "success");
         } catch (Exception $e) {
@@ -88,7 +89,7 @@ function get_or_create_account()
     } else {
         flash("You're not logged in", "danger");
     }
-    die(header("Location: my_accounts.php"));
+    die(header("Location: view_accounts.php?id=" . $_GET["id"]));
 }
 if(isset($_POST['account_type']) && $_POST['amount'] >= 5)
 {
@@ -104,5 +105,5 @@ else
 
 
 <?php
-require_once(__DIR__ . "/../../partials/flash.php");
+require_once(__DIR__ . "/../../../partials/flash.php");
 ?>

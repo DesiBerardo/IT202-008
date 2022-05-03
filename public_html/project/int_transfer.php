@@ -10,8 +10,18 @@ if (!is_logged_in()) {
 
 $db = getDB();
 $id = get_user_id();
-//generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT id, account FROM Accounts WHERE user_id = :user_id"; //TODO change table name and desired columns
+//db32 5/3/2022
+$query = "SELECT id, account, account_type FROM Accounts WHERE user_id = :user_id AND NOT account_type = 'loan' AND isActive = true"; //TODO change table name and desired columns
+$stmt = $db->prepare($query);
+$results_src = [];
+try {
+    $stmt->execute([":user_id" => $id]);
+    $results_src = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "<pre>" . var_export($e, true) . "</pre>";
+}
+
+$query = "SELECT id, account, account_type FROM Accounts WHERE user_id = :user_id AND isActive = true"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results = [];
 try {
@@ -27,7 +37,7 @@ try {
     <form method="POST" onsubmit="return validate(this);">
     <label for="account">Select Source Account</label>
         <select class="form-control" name="id_src">
-            <?php foreach ($results as $index => $records) :?>
+            <?php foreach ($results_src as $index => $records) :?>
                 <option name = "id_src" value="<?php se($records, "id", false); ?>"><?php se($records, "account", false); ?></option>
             <?php endforeach; ?>
         </select>
@@ -58,40 +68,49 @@ if(isset($_POST["amount"]))
         if($id_src != $id_dest)
         {
             $db = getDB();
-            $queryBal = "SELECT balance FROM Accounts WHERE id = :id";
+            $queryBal = "SELECT balance, isFrozen FROM Accounts WHERE id = :id";
             $stmt = $db->prepare($queryBal);
             $stmt->execute([":id" => $id_src]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $src_b =  (int)se($result,"balance",0, false);
+            $src_frozen = $result["isFrozen"];
     
             $stmt->execute([":id" => $id_dest]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $dest_b =  (int)se($result,"balance",0, false);
-    
-            if($src_b >= $amount)
+            $dest_frozen = $result["isFrozen"];
+
+            if($src_frozen == 1 || $dest_frozen == 1)
             {
-                $e1 = $src_b - $amount;
-                $e2 = $dest_b + $amount;
-        
-                $query = "INSERT INTO Transactions(account_src, account_dest, balance_change, transaction_type, memo, expected_total) VALUES(:src, :dest, :bal, :type, :memo, :total)";
-        
-                $stmt = $db->prepare($query);
-                $stmt->execute([":src" => $id_src, ":dest" => $id_dest, ":bal" => $amount * -1, ":type" => "Internal Transfer", ":memo" => $memo, ":total" => $e1]);
-        
-                $queryUp = "UPDATE Accounts SET balance = (SELECT IFNULL(SUM(balance_change), 0) from Transactions WHERE account_src = :src) WHERE id = :id";
-                $stmt = $db->prepare($queryUp);
-                $stmt->execute([":src" => $id_src, ":id" => $id_src]);
-        
-                $stmt = $db->prepare($query);
-                $stmt->execute([":src" => $id_dest, ":dest" => $id_src, ":bal" => $amount, ":type" => "Internal Transfer", ":memo" => $memo, ":total" => $e2]);
-                $stmt = $db->prepare($queryUp);
-                $stmt->execute([":src" => $id_dest, ":id" => $id_dest]);
-        
-                flash("Transaction Complete!", "success");
+                flash("A selected account is frozen", "danger");
             }
             else
             {
-                flash("Insufficent Funds", "danger");
+                if($src_b >= $amount)
+                {
+                    $e1 = $src_b - $amount;
+                    $e2 = $dest_b + $amount;
+            
+                    $query = "INSERT INTO Transactions(account_src, account_dest, balance_change, transaction_type, memo, expected_total) VALUES(:src, :dest, :bal, :type, :memo, :total)";
+            
+                    $stmt = $db->prepare($query);
+                    $stmt->execute([":src" => $id_src, ":dest" => $id_dest, ":bal" => $amount * -1, ":type" => "Internal Transfer", ":memo" => $memo, ":total" => $e1]);
+            
+                    $queryUp = "UPDATE Accounts SET balance = (SELECT IFNULL(SUM(balance_change), 0) from Transactions WHERE account_src = :src) WHERE id = :id";
+                    $stmt = $db->prepare($queryUp);
+                    $stmt->execute([":src" => $id_src, ":id" => $id_src]);
+            
+                    $stmt = $db->prepare($query);
+                    $stmt->execute([":src" => $id_dest, ":dest" => $id_src, ":bal" => $amount, ":type" => "Internal Transfer", ":memo" => $memo, ":total" => $e2]);
+                    $stmt = $db->prepare($queryUp);
+                    $stmt->execute([":src" => $id_dest, ":id" => $id_dest]);
+            
+                    flash("Transaction Complete!", "success");
+                }
+                else
+                {
+                    flash("Insufficent Funds", "danger");
+                }
             }
         }
         else

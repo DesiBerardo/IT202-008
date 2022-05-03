@@ -1,15 +1,18 @@
 <?php
-require_once(__DIR__ . "/../../partials/nav.php");
-if (!is_logged_in()) {
-    die(header("Location: login.php"));
+//note we need to go up 1 more directory
+require(__DIR__ . "/../../../partials/nav.php");
+
+if (!has_role("Admin")) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH" . "home.php"));
 }
 ?>
 
 <?php
 $db = getDB();
-$id = get_user_id();
+$id = $_GET["id"];
 //generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
-$query = "SELECT A.id, A.account, A.account_type, A.modified, A.balance, S.apy_value as APY FROM Accounts A
+$query = "SELECT A.id, A.account, A.account_type, A.modified, A.balance, S.apy_value as APY, A.isFrozen FROM Accounts A
  LEFT JOIN Systemprop S on S.id = A.apy
  WHERE user_id = :user_id AND A.isActive = true"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
@@ -42,18 +45,17 @@ try {
 
 
                 <td>
-                    <a href="transactions.php?id=<?php se($record, "id"); ?>">View Transactions</a>
+                    <a href="transactions_admin.php?id=<?php se($record, "id"); ?>">View Transactions</a>
                 </td>
                 <td>
-                    <a href="close.php?id=<?php se($record, "id"); ?>">Close Account</a>
+                    <a href="freeze.php?id=<?php se($record, "id"); ?>">Freeze Account</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
 <?php endif; ?>
-<h3><a href="create_account.php">Create New Account</a></h3>
-<h3><a href="create_loan.php">Take Out a Loan</a></h3>
+<h3><a href="create_account_admin.php?id=<?php echo $_GET["id"];?>">Create New Account</a></h3>
 
 
 <?php
-require(__DIR__ . "/../../partials/flash.php");
+require(__DIR__ . "/../../../partials/flash.php");
