@@ -18,7 +18,7 @@ if (!has_role("Admin")) {
 
 <?php
 $db= getDB();
-$name = se($_POST, "number", "", false);
+$name = se($_POST, "number", "null", false);
 
 $query = "SELECT id, Account FROM Accounts WHERE account LIKE :n";
 
