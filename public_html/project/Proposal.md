@@ -79,37 +79,43 @@
   - https://db32-prod.herokuapp.com/project/withdraw.php
 
 - Milestone 3
-  - [x] \(5/25/2022) User will be able to transfer between their accounts
+  - [x] \(4/25/2022) User will be able to transfer between their accounts
   -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
   -  https://db32-prod.herokuapp.com/project/int_transfer.php
 
-  - [x] \(5/26/2022) Transaction History Page
+  - [x] \(4/26/2022) Transaction History Page
   -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
   -  https://db32-prod.herokuapp.com/project/transactions.php?id=2
 
-  - [x] \(5/21/2022) User's profile First name and Last name
+  - [x] \(4/21/2022) User's profile First name and Last name
   -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
   -  https://db32-prod.herokuapp.com/project/profile.php
 
-  - [x] \(5/28/2022) User will be able to transfer funds to another user
+  - [x] \(4/28/2022) User will be able to transfer funds to another user
   -  https://github.com/DesiBerardo/IT202-008/blob/Milestone3/public_html/project/milestone3.md
   -  https://db32-prod.herokuapp.com/project/ext_transfer.php
 
 
 - Milestone 4
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
-  -  Link to related .md file: [Link Name](link url)
-  - 
+  - [x] \(4/29/2022) User can set their profile to be public or private (will need another column in Users table)
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone4/public_html/project/milestone4.md
+  -  https://db32-prod.herokuapp.com/project/profile.php?id=3
+  - [x] \(4/29/2022) User will be able open a savings account
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone4/public_html/project/milestone4.md
+  -  https://db32-prod.herokuapp.com/project/create_account.php
+  - [x] \(5/02/2022) User will be able to take out a loan
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone4/public_html/project/milestone4.md
+  -  https://db32-prod.herokuapp.com/project/create_loan.php
+  - [x] \(5/02/2022) Listing accounts and/or viewing Account Details should show any applicable APY or “-” if none is set for the particular account
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone4/public_html/project/milestone4.md
+  -  https://db32-prod.herokuapp.com/project/my_accounts.php
+  - [x] \(5/02/2022) User will be able to close an account
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone4/public_html/project/milestone4.md
+  -  https://db32-prod.herokuapp.com/project/my_accounts.php
+  - [x] \(5/03/2022) Admin role (leave this section for last)
+  -  https://github.com/DesiBerardo/IT202-008/blob/Milestone4/public_html/project/milestone4.md
+  -  https://db32-prod.herokuapp.com/project/admin/search_user.php
+  -  https://db32-prod.herokuapp.com/project/admin/search_account.php
 ### Intructions
 #### Don't delete this
 1. Pick one project type
