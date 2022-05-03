@@ -10,7 +10,7 @@ if (!is_logged_in()) {
 
 $db = getDB();
 $id = get_user_id();
-//generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
+//db32 5/3/2022
 $query = "SELECT id, account FROM Accounts WHERE user_id = :user_id AND isActive = true"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results = [];
@@ -59,7 +59,7 @@ if(isset($_POST["amount"]))
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $dest_b =  (int)se($result,"balance",0, false);
         $frozen = $result["isFrozen"];
-
+        //db32 5/3/2022
         if($frozen == 0)
         {
             $e1 = $src_b - $amount;
