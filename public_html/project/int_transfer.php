@@ -10,7 +10,7 @@ if (!is_logged_in()) {
 
 $db = getDB();
 $id = get_user_id();
-//generally try to avoid SELECT *, but this is about being dynamic so I'm using it this time
+//db32 5/3/2022
 $query = "SELECT id, account, account_type FROM Accounts WHERE user_id = :user_id AND NOT account_type = 'loan' AND isActive = true"; //TODO change table name and desired columns
 $stmt = $db->prepare($query);
 $results_src = [];
