@@ -51,7 +51,7 @@ if (isset($_POST["save"]) && $isMe && $edit) {
         }
     }
     //select fresh data from table
-    $stmt = $db->prepare("SELECT id, email, firstname, lastname IFNULL(username, email) as `username` from Users where id = :id LIMIT 1");
+    $stmt = $db->prepare("SELECT id, firstname, lastname, email, IFNULL(username, email) as `username` from Users where id = :id LIMIT 1");
     try {
         $stmt->execute([":id" => get_user_id()]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -59,6 +59,8 @@ if (isset($_POST["save"]) && $isMe && $edit) {
             //$_SESSION["user"] = $user;
             $_SESSION["user"]["email"] = $user["email"];
             $_SESSION["user"]["username"] = $user["username"];
+            $_SESSION["user"]["firstname"] = $user["firstname"];
+            $_SESSION["user"]["lastname"] = $user["lastname"];
         } else {
             flash("User doesn't exist", "danger");
         }
