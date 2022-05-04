@@ -49,7 +49,7 @@ if(isset($_POST["amount"]))
     if($amount > 0)
     {
         $db = getDB();
-        $queryBal = "SELECT balance FROM Accounts WHERE id = :id";
+        $queryBal = "SELECT balance, isFrozen FROM Accounts WHERE id = :id";
         $stmt = $db->prepare($queryBal);
         $stmt->execute([":id" => $id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
