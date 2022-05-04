@@ -56,6 +56,7 @@ try {
 
 <?php
 
+    //db32 5/3/2022
     $account_type = "loan";
     $amount = se($_POST, "amount", "", false);
     $apy = 2;

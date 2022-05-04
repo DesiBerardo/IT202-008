@@ -46,8 +46,6 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($record as $column => $value) : ?>
                     <td><?php se($value, null, "-");?></td>
                 <?php endforeach; ?>
-
-
                 <td>
                     <a href="view_accounts.php?id=<?php se($record, "id"); ?>">View Accounts</a>
                 </td>
